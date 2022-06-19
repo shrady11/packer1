@@ -2,21 +2,13 @@ pipeline {
   agent any
 
   stages {
-    stage('Packer - Build Docker Image') {
+    stage('Packer - Build RHEL9 Image on vSphere') {
       steps {
         sh """
         #!/bin/bash
-        cd jenkins-tutorial
+        cd /root/packer/builds/rhel9
         packer init .
-        packer build -force .
-        """
-      }
-    }
-    stage('Docker - Verify Docker Image') {
-      steps {
-        sh """
-        #!/bin/bash
-        docker images
+        packer build -var-file=rhel9.auto.pkrvars.hcl -var-file=vsphere.pkrvars.hcl -var-file=common.pkrvars.hcl .
         """
       }
     }
