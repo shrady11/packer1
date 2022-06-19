@@ -11,5 +11,13 @@ pipeline {
         """
       }
     }
+   stage('Verify  Image') {
+      steps {
+        sh """
+        #!/bin/bash
+        echo "Template was created"
+        """
+      }
+    }
   }
 }
